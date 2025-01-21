@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>miArgentina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #362fc1;
+            min-height: 100vh;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #4f46e5;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .pagina {
+    padding-top: 4rem; /* Añade espacio arriba de todas las páginas */
+}
+        .header-title {
+            text-align: center;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-title span {
+            color: #cccccc;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            background-color: #f1f1f1;
+            border-radius: 2rem 2rem 0 0;
+            padding: 1rem;
+            min-height: calc(100vh - 5rem);
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .grid-item {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .grid-item i {
+            color: #4646e6;
+            font-size: 1.5rem;
+        }
+
+        .grid-item span {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .documentos-header {
+            background-color: #4f46e5;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .pagina {
+            display: none;
+            height: 100%; /* Asegura que las páginas activas ocupen toda la altura disponible */
+        }
+
+        .pagina.activa {
+            display: block; /* Solo la página activa será visible */
+            height: 100%; /* Evita que contenido adicional sea visible */
+
+        }
+
+        .chevron-right {
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        .chevron-right.active {
+            transform: rotate(-180deg);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .document-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .document-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
+        }
+
+        .document-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .document-icon {
+            width: 2rem;
+            height: 2rem;
+            border: 2px solid #4f46e5;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4f46e5;
+        }
+
+        .document-title {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .document-content {
+            display: none;
+            padding-top: 1rem;
+        }
+
+        .document-content.active {
+            display: block;
+        }
+
+        .primary-button {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            padding: 1rem;
+            width: 100%;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+
+        .secondary-button {
+            background-color: white;
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+            border-radius: 9999px;
+            padding: 1rem;
+            width: 100%;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+
+        .data-source {
+            padding: 1rem 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .data-source p {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-source a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+
+        .info-text {
+            color: #374151;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        .info-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #4f46e5;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        .info-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 0.5rem;
+        }
+
+        .nav-button.active {
+            color: #4f46e5;
+        }
+
+        .nav-button-text {
+            font-size: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #362fc1;
+            min-height: 100vh;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+
+        .header-title {
+            text-align: center;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-title span {
+            color: #cccccc;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            background-color: #f1f1f1;
+            border-radius: 2rem 2rem 0 0;
+            padding: 1rem;
+            min-height: calc(100vh - 5rem);
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .appointment-card {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: #4646e6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .alert-success {
+            background: #e6ffe6;
+            border: 1px solid #b3ffb3;
+            color: #006600;
+        }
+
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .grid-item {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .grid-item i {
+            color: #4646e6;
+            font-size: 1.5rem;
+        }
+
+        .grid-item span {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            color: #999;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .nav-item.active {
+            color: #4646e6;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        
+        .back-arrow {
+            font-size: 24px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .card {
+            background: white;
+            margin: 1rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4834d4;
+            cursor: pointer;
+        }
+
+        .btn-ingresar {
+            background-color: #4834d4;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .forgot-pin {
+            text-align: center;
+            color: #4834d4;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .nav-item.active {
+            color: #4834d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .refresh-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dni-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .person-name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .dni-image {
+            width: 100%;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .last-update {
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4f46e5;
+        }
+
+        .action-button:first-child {
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .qr-button {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: none;
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            width: 100%;
+            cursor: pointer;
+            color: #4f46e5;
+            justify-content: space-between;
+        }
+
+        .dot-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+        }
+
+        .dot.active {
+            background-color: #4f46e5;
+        }
+
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 0.5rem;
+        }
+
+        .nav-button.active {
+            color: #4f46e5;
+        }
+
+        .nav-button-text {
+            font-size: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .refresh-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .header-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dni-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .person-name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        /* Estilos del slider */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            width: 200%;
+        }
+
+        .slide {
+            flex: 0 0 50%;
+            width: 50%;
+        }
+
+        .dni-image {
+            width: 100%;
+            border-radius: 0.5rem;
+            display: block;
+        }
+
+        .dot-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #4f46e5;
+        }
+
+        .last-update {
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #4f46e5;
+        }
+
+        .action-button:first-child {
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .qr-button {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: none;
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            width: 100%;
+            cursor: pointer;
+            color: #4f46e5;
+            justify-content: space-between;
+        }
+
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6b7280;
+            padding: 0.5rem;
+        }
+
+        .nav-button.active {
+            color: #4f46e5;
+        }
+
+        .nav-button-text {
+            font-size: 0.75rem;
+        }.dni-details {
+            display: none;
+            padding: 1rem;
+            background: white;
+            border-radius: 1rem;
+            margin-top: 1rem;
+        }
+
+        .dni-details.active {
+            display: block;
+        }
+
+        .detail-item {
+            margin-bottom: 1rem;
+        }
+
+        .detail-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: #1f2937;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .action-button:disabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        /* Estilo para el código de barras */
+        .barcode {
+            width: 80%;
+            margin: 1rem auto;
+            text-align: center;
+        }
+        .barcode > img {
+            width: 250px; /* Ancho fijo para la imagen */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        /* Estilo para la foto */
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 1rem auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Página de Inicio -->
+    <div id="inicio" class="pagina activa">
+        <header class="header">
+            <i class="fas fa-bars"></i>
+            <div class="header-title">
+                <h1><span>mi</span>Argentina</h1>
+                <p>¡Hola, Joaquin!</p>
+            </div>
+            <i class="fas fa-user-circle"></i>
+        </header>
+    
+        <main class="main-content">
+            <!-- Notificación título digital -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Tu título digital ya está disponible</h2>
+                        <p class="card-text">Ahora podés descargar tu analítico secundario o de educación superior las veces que necesites.</p>
+                    </div>
+                    <button class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+    
+            <!-- Turnos -->
+            <div class="card">
+                <div class="appointment-card">
+                    <i class="fas fa-ticket-alt" style="color: #4646e6; font-size: 1.5rem;"></i>
+                    <div>
+                        <p class="card-title">No tenés turnos programados.</p>
+                        <button class="btn">Sacá turno</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Credenciales -->
+            <div class="card alert-success">
+                <div class="card-header">
+                    <h2 class="card-title">¡Todas tus credenciales están al día!</h2>
+                    <i class="fas fa-check-circle" style="color: #006600;"></i>
+                </div>
+            </div>
+    
+            <h2 class="card-title" style="margin: 1.5rem 0 1rem;">¿Qué necesitás hoy?</h2>
+            <div class="grid-menu">
+                <div class="grid-item" onclick="mostrarPagina('documentos')">
+                    <i class="fas fa-id-card"></i>
+                    <span>Documentos</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-car"></i>
+                    <span>Vehículos</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Trabajo</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-heart"></i>
+                    <span>Salud</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-wallet"></i>
+                    <span>Cobros</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Trámites</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Turnos</span>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-users"></i>
+                    <span>Hijos</span>
+                </div>
+            </div>
+        </main>
+    
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Novedades</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Teléfonos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-robot"></i>
+                <span>Tina</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Página de Documentos -->
+    <div id="documentos" class="pagina">
+        <header class="header">
+            <button class="back-button">←</button>
+            <h1 class="header-title">Documentos</h1>
+        </header>
+
+        <main class="main-content">
+            <div class="document-card">
+                <div class="document-header">
+                    <div class="document-info">
+                        <div class="document-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <span class="document-title">Documento Nacional de Identidad (DNI)</span>
+                    </div>
+                    <span class="chevron-right">⌄</span>
+                </div>
+                
+                <div class="document-content">
+                    <button class="primary-button" onclick="mostrarPagina('Pin')">Ver DNI digital</button>
+                    
+                    <div class="data-source">
+                        <p>Datos suministrados por</p>
+                        <a href="#">RENAPER</a>
+                    </div>
+                    
+                    <p class="info-text">
+                        Recordá que podés solicitar el DNI para vos y para tus hijos y tenerlo disponible en la App.
+                    </p>
+                    
+                    <button class="secondary-button">Solicitar DNI Digital</button>
+                    
+                    <a href="#" class="info-link">
+                        <div class="info-icon">i</div>
+                        <span>Cambié o voy a cambiar el dispositivo</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Novedades</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Teléfonos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-robot"></i>
+                <span>Tina</span>
+            </a>
+        </nav>
+
+        
+    </div>
+    <div id="Pin" class="pagina">
+
+        <div class="header">
+            <a href="#" class="back-arrow">←</a>
+            <h1>DNI Digital</h1>
+        </div>
+    
+        <div class="card">
+            <h2 class="title">Ingresá tu PIN de acceso</h2>
+            
+            <div class="input-container">
+                <input type="password" id="pinInput" placeholder="">
+                <div class="eye-icon">👁️</div>
+            </div>
+    
+            <button class="btn-ingresar" onclick="mostrarPagina('Dni')">Ingresar</button>
+            
+            <div style="text-align: center;">
+                <a href="#" class="forgot-pin">Olvide mi PIN</a>
+            </div>
+        </div>
+    
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Novedades</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Teléfonos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-robot"></i>
+                <span>Tina</span>
+            </a>
+        </nav>
+    </div>
+    <div id="Dni" class="pagina">
+        <header class="header">
+            <div class="header-left">
+                <button class="back-button">←</button>
+                <h1 class="header-title">DNI Digital</h1>
+            </div>
+            <button class="refresh-button">↻</button>
+        </header>
+    
+        <main class="main-content">
+            <div class="dni-card">
+                <h2 class="person-name">Joaquin Maggio</h2>
+                
+                <div class="slider-container">
+                    <div class="slider">
+                        <div class="slide">
+                            <img src="https://i.ibb.co/MNhCv00/DNI-Tacho-Final-v43.jpg" alt="DNI Frente" class="dni-image">
+                        </div>
+                        <div class="slide">
+                            <img src="https://i.ibb.co/S0r4GFv/parte-atras-dni-joaco.jpg" alt="DNI Dorso" class="dni-image">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="dot-indicators">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+    
+                <p class="last-update">Última actualización 27/01/2024 21:57 hs</p>
+    
+                <div class="action-buttons">
+                    <button class="action-button" id="viewDetailsBtn">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Ver detalle
+                    </button>
+    
+                    <button class="action-button" disabled>
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Desactivar DNI
+                    </button>
+                </div>
+                <div class="dni-details" id="dniDetails">
+                    <img src="https://i.ibb.co/YQpGrj0/cara-joaco.jpg" alt="Foto de perfil" class="profile-photo">
+                    
+                    <div class="barcode">
+                        <img src="https://i.ibb.co/FB4DN2S/Qr-jaoco.jpg" alt="Código de barras">
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">DNI</div>
+                        <div class="detail-value">47716427</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Número de trámite</div>
+                        <div class="detail-value">007052180507509</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Fecha de emisión</div>
+                        <div class="detail-value">17/MAY/2023</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Fecha de vencimiento</div>
+                        <div class="detail-value">17/MAY/2038</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Nombre</div>
+                        <div class="detail-value">JOAQUIN</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Apellido</div>
+                        <div class="detail-value">MAGGIO</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Sexo</div>
+                        <div class="detail-value">M</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Fecha de nacimiento</div>
+                        <div class="detail-value">24/MAY/2006</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Nacionalidad</div>
+                        <div class="detail-value">ARG</div>
+                    </div>
+    
+                    <div class="detail-item">
+                        <div class="detail-label">Dirección</div>
+                        <div class="detail-value">OCTAVIO BUNGE 767 - - - SAN ISIDRO BUENOS AIRES</div>
+                    </div>
+                </div>
+                <button class="qr-button" disabled>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                        </svg>
+                        Verifica código QR
+                    </div>
+                    <span>▼</span>
+                </button>
+            </div>
+        </main>
+    
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Novedades</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-phone"></i>
+                <span>Teléfonos</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-robot"></i>
+                <span>Tina</span>
+            </a>
+        </nav>
+    </div>
+    <script>
+        function navegarAtras(paginaActual) {
+            switch(paginaActual) {
+                case 'documentos':
+                    mostrarPagina('inicio');
+                    break;
+                case 'Pin':
+                    mostrarPagina('documentos');
+                    break;
+                case 'Dni':
+                    mostrarPagina('Pin');
+                    break;
+                default:
+                    mostrarPagina('inicio');
+            }
+        }
+                // Agregar event listeners a todos los botones de retroceso
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener todos los botones back y enlaces back-arrow
+            const backButtons = document.querySelectorAll('.back-button, .back-arrow');
+            
+            // Agregar el evento click a cada botón
+            backButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevenir comportamiento por defecto para los enlaces
+                    
+                    // Encontrar la página actual
+                    const paginaActual = document.querySelector('.pagina.activa').id;
+                    
+                    // Navegar hacia atrás según la página actual
+                    navegarAtras(paginaActual);
+                });
+            });
+        });
+
+        // Función para ver el DNI digital
+        function VerDni() {
+            
+        }
+
+        // Obtener todos los botones de navegación
+        const navButtons = document.querySelectorAll('.nav-button');
+        const documentHeader = document.querySelector('.document-header');
+        const documentContent = document.querySelector('.document-content');
+        const chevron = document.querySelector('.chevron-right');
+
+        // Función para alternar el contenido
+        function toggleContent() {
+            documentContent.classList.toggle('active');
+            chevron.classList.toggle('active');
+        }
+
+        // Agregar evento click al encabezado del documento
+        documentHeader.addEventListener('click', toggleContent);
+
+        // Agregar evento click a cada botón de navegación
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        // Manejador del botón de retroceso
+        const backButton = document.querySelector('.back-button');
+        backButton.addEventListener('click', () => {
+            documentContent.classList.remove('active');
+            chevron.classList.remove('active');
+        });
+
+        // Función para mostrar una página y ocultar las demás
+        function mostrarPagina(paginaId) {
+    // Ocultar todas las páginas
+    const paginas = document.querySelectorAll('.pagina');
+    paginas.forEach(pagina => {
+        pagina.classList.remove('activa');
+    });
+
+    // Mostrar la página seleccionada
+    const paginaSeleccionada = document.getElementById(paginaId);
+    if (paginaSeleccionada) {
+        paginaSeleccionada.classList.add('activa');
+    }
+}
+//JS pin
+function PinCorrecto() {
+            // Ahora cualquier PIN será aceptado
+            alert("PIN correcto");
+        }
+
+        // Funcionalidad para mostrar/ocultar PIN
+        document.querySelector('.eye-icon').addEventListener('click', function() {
+            const input = document.getElementById('pinInput');
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        });
+
+// JS Dni
+            document.addEventListener('DOMContentLoaded', function() {
+                const slider = document.querySelector('.slider');
+                const dots = document.querySelectorAll('.dot');
+                const slides = document.querySelectorAll('.slide');
+                let currentSlide = 0;
+                let startX;
+                let isDragging = false;
+                let currentTranslate = 0;
+                let prevTranslate = 0;
+        
+                // Touch events
+                slider.addEventListener('touchstart', dragStart);
+                slider.addEventListener('touchmove', drag);
+                slider.addEventListener('touchend', dragEnd);
+        
+                // Mouse events
+                slider.addEventListener('mousedown', dragStart);
+                slider.addEventListener('mousemove', drag);
+                slider.addEventListener('mouseup', dragEnd);
+                slider.addEventListener('mouseleave', dragEnd);
+        
+                // Prevent context menu
+                window.oncontextmenu = function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                };
+        
+                function dragStart(event) {
+                    startX = getPositionX(event);
+                    isDragging = true;
+                    slider.style.cursor = 'grabbing';
+                }
+        
+                function drag(event) {
+                    if (isDragging) {
+                        const currentPosition = getPositionX(event);
+                        currentTranslate = prevTranslate + currentPosition - startX;
+                        slider.style.transform = `translateX(${currentTranslate}px)`;
+                    }
+                }
+        
+                function dragEnd() {
+                    isDragging = false;
+                    const movedBy = currentTranslate - prevTranslate;
+        
+                    if (movedBy < -100 && currentSlide < slides.length - 1) {
+                        currentSlide += 1;
+                    }
+                    if (movedBy > 100 && currentSlide > 0) {
+                        currentSlide -= 1;
+                    }
+        
+                    setSlidePosition();
+                    slider.style.cursor = 'grab';
+                }
+        
+                function getPositionX(event) {
+                    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                }
+        
+                function setSlidePosition() {
+                    currentTranslate = currentSlide * -slider.clientWidth / 2;
+                    prevTranslate = currentTranslate;
+                    slider.style.transform = `translateX(${currentTranslate}px)`;
+                    updateDots();
+                }
+        
+                function updateDots() {
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+        
+                // Add click events to dots
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        currentSlide = index;
+                        setSlidePosition();
+                    });
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const viewDetailsBtn = document.getElementById('viewDetailsBtn');
+                const dniDetails = document.getElementById('dniDetails');
+                
+                viewDetailsBtn.addEventListener('click', function() {
+                    dniDetails.classList.toggle('active');
+                });
+            });
+    </script>
+</body>
+</html>
